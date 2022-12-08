@@ -14,7 +14,11 @@ class UpdateCustomerRequest extends FormRequest
      */
     public function authorize()
     {
-        return true;
+        $user = $this->user();
+
+        return $user != null && $user->tokenCan('update');
+
+        // return true;
     }
 
     /**
@@ -36,7 +40,7 @@ class UpdateCustomerRequest extends FormRequest
                 'state' => ['required'],
                 'postalCode' => ['required'],
             ];
-        } elseif ($method = 'PATCH') {
+        } else {
             return [
                 'name' => ['sometimes'],
                 'type' => ['sometimes', Rule::in(['I', 'B', 'i', 'b'])],

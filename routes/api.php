@@ -20,7 +20,22 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1'], function () {
+Route::group(['prefix' => 'v1', 'namespace' => 'App\Http\Controllers\Api\V1', 'middleware'  => 'auth:sanctum'], function () {
     Route::apiResource('customers', CustomerController::class);
     Route::apiResource('invoices', InvoiceController::class);
+
+    Route::post('invoices/bulk', ['uses' => 'InvoiceController@bulkStore']);
 });
+
+
+/*
+
+API tokens
+
+{
+"admin": "1|eRF9okAyKivVqIdaqer4ADTHIold3rbo08017WIy",
+"update": "2|RLO1lp3iDaSu3fBpgrXdsIs55DFb4lLDNQXXTHrb",
+"basic": "3|rAFIniaFI3BkFB2gwqANiO6jFbHTt1rlRCpARuNC"
+}
+
+*/
