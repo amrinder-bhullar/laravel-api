@@ -19,7 +19,7 @@
 </head>
 
 <body class="antialiased">
-    <div id="example"></div>
+    <div id="app"></div>
 </body>
 
 </html>
