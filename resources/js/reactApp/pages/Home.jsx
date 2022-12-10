@@ -5,15 +5,14 @@ import Customer from "../components/Customer";
 const Home = () => {
     let [data, setData] = useState([]);
 
+    let getData = async () => {
+        const response = await fetch(
+            "http://laravel-api.test/api/v1/customers"
+        );
+        const data = await response.json();
+        setData(data.data);
+    };
     useEffect(() => {
-        let getData = async () => {
-            const response = await fetch(
-                "http://laravel-api.test/api/v1/customers"
-            );
-            const data = await response.json();
-            setData(data.data);
-        };
-
         getData();
     }, []);
 
